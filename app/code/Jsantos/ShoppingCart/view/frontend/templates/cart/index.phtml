@@ -1,0 +1,9 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Jsantos\ShoppingCart\ViewModel\CartContent $cartContent */
+$cartContent = $block->getData('cart_content_view_model');
+?>
+
+<p>
+    <?= $cartContent->getMessage() ?>
+</p>
