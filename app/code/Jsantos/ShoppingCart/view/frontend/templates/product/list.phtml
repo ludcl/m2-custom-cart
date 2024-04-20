@@ -1,8 +1,5 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+
 use Magento\Framework\App\Action\Action;
 
 ?>
@@ -10,7 +7,7 @@ use Magento\Framework\App\Action\Action;
 /**
  * Product list template
  *
- * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Catalog\Block\Product\ListProduct $block
  * @var \Magento\Framework\Escaper $escaper
  * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
  */
@@ -108,6 +105,12 @@ $_helper = $block->getData('outputHelper');
                                                     class="action tocart primary"
                                                     disabled>
                                                 <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+                                            </button>
+                                            <button type="button"
+                                                    title="<?= $escaper->escapeHtmlAttr(__('Add to Custom Cart')) ?>"
+                                                    class="action tocart secondary customcart"
+                                                    disabled>
+                                                <span><?= $escaper->escapeHtml(__('Add to Custom Cart')) ?></span>
                                             </button>
                                         </form>
                                     <?php else:?>

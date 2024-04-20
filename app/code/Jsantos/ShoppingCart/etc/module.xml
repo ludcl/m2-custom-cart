@@ -4,6 +4,7 @@
     <module name="Jsantos_ShoppingCart">
         <sequence>
             <module name="Magento_Catalog"/>
+            <module name="Magento_CatalogSearch"/>
         </sequence>
     </module>
 </config>
