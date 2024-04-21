@@ -82,8 +82,8 @@ define([
          * @override
          */
         initialize: function () {
-            var self = this,
-                cartData = customerData.get('cart');
+            let self = this,
+                cartData = customerData.get('customcart');
 
             this.update(cartData());
             cartData.subscribe(function (updatedCart) {
@@ -102,7 +102,7 @@ define([
                 cartData().website_id !== window.checkout.websiteId && cartData().website_id !== undefined ||
                 cartData().storeId !== window.checkout.storeId && cartData().storeId !== undefined
             ) {
-                customerData.reload(['cart'], false);
+                customerData.reload(['customcart'], false);
             }
 
             return this._super();

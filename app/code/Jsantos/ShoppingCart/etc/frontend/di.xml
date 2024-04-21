@@ -4,7 +4,7 @@
     <type name="Magento\Customer\CustomerData\SectionPoolInterface">
         <arguments>
             <argument name="sectionSourceMap" xsi:type="array">
-                <item name="customcart-data" xsi:type="string">Jsantos\ShoppingCart\CustomerData\Customcart</item>
+                <item name="customcart" xsi:type="string">Jsantos\ShoppingCart\CustomerData\Customcart</item>
             </argument>
         </arguments>
     </type>
