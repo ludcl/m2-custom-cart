@@ -62,8 +62,8 @@
 
     <if args="getCartParam('summary_count')">
         <strong class="subtitle" translate="'Recently added item(s)'"></strong>
-        <div data-action="scroll" class="minicart-items-wrapper">
-            <ol id="custom-mini-cart" class="minicart-items" data-bind="foreach: { data: getCartItems(), as: 'item' }">
+        <div data-action="scroll" class="custom-minicart-items-wrapper">
+            <ol id="custom-mini-cart" class="custom-minicart-items" data-bind="foreach: { data: getCartItems(), as: 'item' }">
                 <each args="$parent.getRegion($parent.getItemRenderer(item.product_type))"
                       render="{name: getTemplate(), data: item, afterRender: function() {$parents[1].initSidebar()}}"></each>
             </ol>
