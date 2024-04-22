@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Jsantos\ShoppingCart\CustomerData;
 
+use Jsantos\ShoppingCart\Model\CustomSession as Session;
+use Jsantos\ShoppingCart\Model\Quote;
+use Jsantos\ShoppingCart\Model\Quote\Item;
 use Magento\Catalog\Block\ShortcutButtons;
 use Magento\Catalog\Model\ResourceModel\Url;
 use Magento\Checkout\CustomerData\ItemPoolInterface;
 use Magento\Checkout\Helper\Data;
 use Magento\Checkout\Model\Cart;
-use Magento\Checkout\Model\Session;
 use Magento\Customer\CustomerData\SectionSourceInterface;
 use Magento\Framework\DataObject;
 use Magento\Framework\View\LayoutInterface;
-use Magento\Quote\Model\Quote;
-use Magento\Quote\Model\Quote\Item;
 
 class Customcart extends DataObject implements SectionSourceInterface
 {
@@ -92,10 +92,7 @@ class Customcart extends DataObject implements SectionSourceInterface
      */
     protected function getSummaryCount(): float|int
     {
-        if (!$this->summeryCount) {
-            $this->summeryCount = $this->checkoutCart->getSummaryQty() ?: 0;
-        }
-        return $this->summeryCount;
+        return $this->getQuote()->getItemsQty() * 1;
     }
 
     /**
