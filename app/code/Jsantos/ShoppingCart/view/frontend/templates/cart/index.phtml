@@ -1,9 +1,18 @@
 <?php
-/** @var \Magento\Framework\View\Element\Template $block */
-/** @var \Jsantos\ShoppingCart\ViewModel\CartContent $cartContent */
+
+declare(strict_types=1);
+
+use Jsantos\ShoppingCart\ViewModel\CartContent;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+/** @var CartContent $cartContent */
+
 $cartContent = $block->getData('cart_content_view_model');
 ?>
 
 <p>
-    <?= $cartContent->getMessage() ?>
+    <?= $escaper->escapeHtml($cartContent->getMessage()) ?>
 </p>

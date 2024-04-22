@@ -1,10 +1,16 @@
 <?php
-/** @var \Magento\Catalog\Block\Product\View $block */
-/** @var \Magento\Framework\Escaper $escaper */
+
+declare(strict_types=1);
+
+use Magento\Catalog\Block\Product\View;
+use Magento\Framework\Escaper;
+
+/** @var View $block */
+/** @var Escaper $escaper */
 ?>
 <?php $_product = $block->getProduct(); ?>
 <?php $buttonTitle = __('Add to Custom Cart'); ?>
-<?php if ($_product->isSaleable()) :?>
+<?php if ($_product->isSaleable()):?>
     <button type="submit"
             title="<?= $escaper->escapeHtmlAttr($buttonTitle) ?>"
             class="action secondary tocart customcart"
