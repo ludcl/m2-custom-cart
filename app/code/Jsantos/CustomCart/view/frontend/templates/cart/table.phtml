@@ -1,0 +1,44 @@
+<?php
+
+declare(strict_types=1);
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+use Magento\Checkout\Block\Cart\Grid;
+use Magento\Framework\Escaper;
+
+/**  @var Grid $block */
+/** @var Escaper $escaper */
+
+?>
+
+<div id="cart-form-container" class="cart-component-container form form-cart"
+     data-bind="scope:'checkout-cart-form'">
+    <div id="checkout-loader" data-role="checkout-loader" class="loading-mask"
+         data-mage-init='{"checkoutLoader": {}}'>
+        <div class="loader">
+            <img src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/loader-1.gif')) ?>"
+                 alt="<?= $escaper->escapeHtmlAttr(__('Loading...')) ?>"
+                 style="position: absolute;">
+        </div>
+    </div>
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#cart-form-container": {
+                "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+        }
+    }
+    </script>
+    <script>
+        require([
+            'mage/url',
+            'Magento_Ui/js/block-loader'
+        ], function(url, blockLoader) {
+            blockLoader("<?= $escaper->escapeJs(
+                $escaper->escapeUrl($block->getViewFileUrl('images/loader-1.gif'))
+            ) ?>");
+            return url.setBaseUrl('<?= $escaper->escapeJs($escaper->escapeUrl($block->getBaseUrl())) ?>');
+        })
+    </script>
+</div>

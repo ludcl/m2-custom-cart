@@ -1,0 +1,35 @@
+@icon-custom-cart: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgLTk2MCA5NjAgOTYwIiB3aWR0aD0iMjQiPjxwYXRoIGQ9Ik0yNDAtODBxLTMzIDAtNTYuNS0yMy41VDE2MC0xNjB2LTQ4MHEwLTMzIDIzLjUtNTYuNVQyNDAtNzIwaDgwcTAtNjYgNDctMTEzdDExMy00N3E2NiAwIDExMyA0N3Q0NyAxMTNoODBxMzMgMCA1Ni41IDIzLjVUODAwLTY0MHY0ODBxMCAzMy0yMy41IDU2LjVUNzIwLTgwSDI0MFptMC04MGg0ODB2LTQ4MGgtODB2ODBxMCAxNy0xMS41IDI4LjVUNjAwLTUyMHEtMTcgMC0yOC41LTExLjVUNTYwLTU2MHYtODBINDAwdjgwcTAgMTctMTEuNSAyOC41VDM2MC01MjBxLTE3IDAtMjguNS0xMS41VDMyMC01NjB2LTgwaC04MHY0ODBabTE2MC01NjBoMTYwcTAtMzMtMjMuNS01Ni41VDQ4MC04MDBxLTMzIDAtNTYuNSAyMy41VDQwMC03MjBaTTI0MC0xNjB2LTQ4MCA0ODBaIi8+PC9zdmc+");
+
+.widget-product-grid {
+    .product-image-container {
+        width: 100%;
+        height: auto;
+    }
+
+    .product-image-container span.product-image-wrapper {
+        height: 100%;
+        width: 100%;
+        padding-bottom: 100%;
+    }
+}
+
+.minicart-wrapper .action.showcustomcart:before {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 22px;
+    line-height: 36px;
+    content: @icon-custom-cart;
+    margin: 0;
+    vertical-align: top;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+}
+
+@media (min-width: 769px), print {
+    .cart.table-wrapper .product-item-photo {
+        min-width: 150px;
+    }
+}
