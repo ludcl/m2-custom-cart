@@ -2,18 +2,59 @@
 
 declare(strict_types=1);
 
-/* @var Magento\Checkout\Block\Cart\Shipping $block */
-/* @var \Magento\Framework\Escaper $escaper */
+/** @var \Magento\Checkout\Block\Cart\Shipping $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+/** @var \Magento\Framework\Escaper $escaper */
 
 try {
     $serializedCheckoutConfig = $block->getSerializedCheckoutConfig();
-} catch (Exception) {
+} catch (Exception $e) {
     $serializedCheckoutConfig = false;
 }
 ?>
 
-<?php if ($serializedCheckoutConfig): ?>
-<script>
-    window.checkoutConfig = <?= /* @noEscape */ $block->getSerializedCheckoutConfig(); ?>;
-</script>
+<?php if ($serializedCheckoutConfig) : ?>
+<div id="block-summary"
+     data-bind="scope:'block-summary'"
+     style="display: none"
+     data-role="content"
+     aria-labelledby="block-shipping-heading"
+>
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#block-summary": {
+                "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+        }
+    }
+    </script>
+    <?php $serializedCheckoutConfig = /* @noEscape */ $block->getSerializedCheckoutConfig();
+
+    $scriptString = <<<script
+
+        window.checkoutConfig = {$serializedCheckoutConfig};
+        window.customerData = window.checkoutConfig.customerData;
+        window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
+        require([
+            'mage/url',
+            'Magento_Ui/js/block-loader'
+        ], function(url, blockLoader) {
+            blockLoader(
+                "{$escaper->escapeJs($escaper->escapeUrl($block->getViewFileUrl('images/loader-1.gif')))}"
+            );
+            return url.setBaseUrl('{$escaper->escapeJs($escaper->escapeUrl($block->getBaseUrl()))}');
+        })
+script;
+    ?>
+    <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+</div>
+<?php else: ?>
+
+    <script>
+        window.checkoutConfig = {
+            customerData: {},
+            isCustomerLoggedIn: false,
+        };
+    </script>
+
 <?php endif; ?>
