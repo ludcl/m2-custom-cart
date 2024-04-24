@@ -100,7 +100,13 @@ class Index extends View
         return $this->imageHelper->init($product, 'product_base_image')->getUrl();
     }
 
-    public function getToCustomCartUrl(){
+    /**
+     * Get Custom Cart URL
+     *
+     * @return string
+     */
+    public function getToCustomCartUrl(): string
+    {
         return $this->getUrl('customcart/index/add');
     }
 }

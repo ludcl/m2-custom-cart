@@ -47,9 +47,11 @@ use Magento\Framework\Escaper;
                 'mage/url',
                 'Magento_Ui/js/block-loader'
             ], function(url, blockLoader) {
-                blockLoader("<?= $escaper->escapeJs(
-                    $escaper->escapeUrl($block->getViewFileUrl('images/loader-1.gif'))
-                ) ?>");
+                blockLoader(
+                    "<?= $escaper->escapeJs($escaper->escapeUrl(
+                        $block->getViewFileUrl('images/loader-1.gif')
+                    )) ?>"
+                );
                 return url.setBaseUrl('<?= $escaper->escapeJs($escaper->escapeUrl($block->getBaseUrl())) ?>');
             })
         </script>

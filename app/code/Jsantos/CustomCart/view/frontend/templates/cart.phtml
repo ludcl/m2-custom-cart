@@ -50,14 +50,13 @@ use Magento\Catalog\Model\Product;
                             <?= /* @noEscape */ $block->getProductPriceHtml($product, 'final_price') ?>
                             <div class="product-item-actions">
                                 <div class="actions-primary">
-                                    <form data-role="tocart-form" data-product-sku="WS12" action="https://magento.test/checkout/cart/add/uenc/aHR0cHM6Ly9tYWdlbnRvLnRlc3Qv/product/<?= $escaper->escapeHtml($product->getEntityId()) ?>/" method="post">
+                                    <form data-role="tocart-form" action="#" method="post">
                                         <input type="hidden"
                                                name="product"
                                                value="<?= $escaper->escapeHtml($product->getEntityId()) ?>">
                                         <input type="hidden"
                                                name="qty"
                                                value="1">
-                                        <input name="form_key" type="hidden" value="hnT5kGWaE414sc3M">
                                         <button type="submit"
                                                 title="Add to Cart"
                                                 class="action tocart to-custom primary">

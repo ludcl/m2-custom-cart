@@ -19,7 +19,6 @@ class Customcart extends AbstractModel implements CustomcartInterface
         $this->_init(ResourceModel\Customcart::class);
     }
 
-
     /**
      * @inheritDoc
      */

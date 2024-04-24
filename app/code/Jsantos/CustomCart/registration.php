@@ -9,4 +9,3 @@ ComponentRegistrar::register(
     'Jsantos_CustomCart',
     __DIR__
 );
-
