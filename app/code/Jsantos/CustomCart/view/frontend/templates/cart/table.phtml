@@ -18,6 +18,11 @@ use Magento\Framework\Escaper;
         <p>...is empty. Let's change that.</p>
     </div>
 </div>
+<style>
+    .cart-summary {
+        display: none;
+    }
+</style>
 <?php else: ?>
     <div id="cart-form-container" class="cart-component-container form form-cart"
          data-bind="scope:'checkout-cart-form'">
