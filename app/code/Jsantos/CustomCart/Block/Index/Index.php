@@ -83,9 +83,10 @@ class Index extends View
             ->addStoreFilter()
             ->addAttributeToSelect(['name', 'price', 'image', 'product_url'])
             ->setPageSize(10)
-            ->setCurPage(1);
+            ->setCurPage(1)
+            ->getSelect()->order('rand()');
 
-        return $productCollection;
+        return $productCollection->load();
     }
 
     /**
