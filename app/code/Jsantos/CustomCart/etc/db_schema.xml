@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="customcart" resource="checkout" engine="innodb" comment="CustomCart">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true" identity="false" comment="Customer ID"/>
+        <column xsi:type="int" name="items_qty" unsigned="true" nullable="true" identity="false" default="0" comment="Items Qty"/>
+        <column xsi:type="decimal" name="subtotal" scale="4" precision="20" unsigned="false" nullable="true" comment="Subtotal"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="customcart_item" resource="checkout" engine="innodb" comment="CustomCart Item">
+        <column xsi:type="int" name="item_id" unsigned="true" nullable="false" identity="true" comment="Item ID"/>
+        <column xsi:type="int" name="customcart_id" unsigned="true" nullable="false" identity="false" default="0" comment="Custom Quote ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="true" identity="false" comment="Product ID"/>
+        <column xsi:type="varchar" name="sku" nullable="true" length="255" comment="Sku"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+        <column xsi:type="int" name="qty" unsigned="true" nullable="false" identity="false" default="0" comment="Qty"/>
+        <column xsi:type="decimal" name="price" scale="4" precision="20" unsigned="false" nullable="false" default="0" comment="Price"/>
+        <column xsi:type="decimal" name="row_subtotal" scale="4" precision="20" unsigned="false" nullable="false" default="0" comment="Row Subtotal"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="item_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CUSTOMCART_ITEM_CUSTOMCART_ID_CUSTOMCART_ENTITY_ID" table="customcart_item" column="customcart_id" referenceTable="customcart" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="CUSTOMCART_ITEM_CUSTOMCART_ID" indexType="btree">
+            <column name="customcart_id"/>
+        </index>
+    </table>
+</schema>

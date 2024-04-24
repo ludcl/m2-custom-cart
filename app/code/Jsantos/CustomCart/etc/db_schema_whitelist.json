@@ -1,0 +1,36 @@
+{
+    "customcart": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "items_qty": true,
+            "subtotal": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "customcart_item": {
+        "column": {
+            "item_id": true,
+            "customcart_id": true,
+            "product_id": true,
+            "sku": true,
+            "name": true,
+            "qty": true,
+            "price": true,
+            "row_subtotal": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "CUSTOMCART_ITEM_CUSTOMCART_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CUSTOMCART_ITEM_CUSTOMCART_ID_CUSTOMCART_ENTITY_ID": true
+        }
+    }
+}

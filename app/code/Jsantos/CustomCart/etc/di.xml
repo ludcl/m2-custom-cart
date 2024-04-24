@@ -1,4 +1,9 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Jsantos\CustomCart\Api\Data\CustomcartInterface" type="Jsantos\CustomCart\Model\Customcart"/>
+    <preference for="Jsantos\CustomCart\Api\Data\CustomcartItemInterface" type="Jsantos\CustomCart\Model\CustomcartItem"/>
+
+    <preference for="Jsantos\CustomCart\Api\CustomcartRepositoryInterface" type="Jsantos\CustomCart\Model\CustomcartRepository"/>
+    <preference for="Jsantos\CustomCart\Api\CustomcartItemRepositoryInterface" type="Jsantos\CustomCart\Model\CustomcartItemRepository"/>
 </config>
