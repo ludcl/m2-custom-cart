@@ -7,6 +7,9 @@ namespace Jsantos\CustomCart\CustomerData;
 use Jsantos\CustomCart\Api\Data\CustomcartInterface;
 use Jsantos\CustomCart\Api\Data\CustomcartItemInterface;
 use Jsantos\CustomCart\Model\Session;
+use Magento\Catalog\Api\Data\ProductInterface;
+use Magento\Catalog\Helper\Image;
+use Magento\Catalog\Model\Product;
 use Magento\Customer\CustomerData\SectionSourceInterface;
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Checkout\Helper\Data as CheckoutHelper;
@@ -25,14 +28,16 @@ class Customcart implements SectionSourceInterface
      * Constructor
      *
      * @param CheckoutHelper $checkoutHelper
-     * @param LoggerInterface $logger
      * @param CustomerSession $customerSession
+     * @param Image $imageHelper
+     * @param LoggerInterface $logger
      * @param Session $customcartSession
      */
     public function __construct(
         protected CheckoutHelper $checkoutHelper,
-        protected LoggerInterface $logger,
         protected CustomerSession $customerSession,
+        protected Image $imageHelper,
+        protected LoggerInterface $logger,
         protected Session $customcartSession
     ) {
     }
@@ -110,15 +115,44 @@ class Customcart implements SectionSourceInterface
             return $items;
         }
 
-        foreach (array_reverse($this->getCustomcart()->getItems()) as $item) {
-            /* @var $item CustomcartItemInterface */
-            if (!$item->getProduct()->isVisibleInSiteVisibility()) {
-                //$product = $item->getProduct();
-
-                // TODO: Add productItem to recentItems
-                $items[] = [];
-            }
+        /** @var $item CustomcartItemInterface */
+        foreach ($this->getCustomcart()->getItems() as $item) {
+            $product = $item->getProduct();
+            $items[] = [
+                'product_type' => $product->getTypeId(),
+                'options' => $product->getOptions(),
+                'qty' => $item->getQty(),
+                'item_id' => $item->getItemId(),
+                'is_visible_in_site_visibility' => $product->isVisibleInSiteVisibility(),
+                'product_id' => $item->getProductId(),
+                'product_name' => $item->getName(),
+                'product_sku' => $item->getSku(),
+                'product_url' => $product->getProductUrl(),
+                'product_has_url' => $product->hasUrl(),
+                'product_price' => $product->getPrice(),
+                'product_price_value' => $this->checkoutHelper->formatPrice($product->getPrice()),
+                'product_image' => [
+                    'src' => $this->getProductImage($product),
+                    'alt' => $item->getName(),
+                    'width' => 150,
+                    'height' => 150
+                ],
+                'message' => ""
+            ];
         }
-        return $items;
+
+        return array_reverse($items);
+    }
+
+    /**
+     * Get Product Image URL
+     *
+     * @param ProductInterface $product
+     * @return string
+     */
+    public function getProductImage(ProductInterface $product): string
+    {
+        /** @var Product $product */
+        return $this->imageHelper->init($product, 'product_base_image')->getUrl();
     }
 }

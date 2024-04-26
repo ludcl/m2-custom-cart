@@ -49,14 +49,14 @@ define([
 
                     updateCartAction(data, deferred);
                     $.when(deferred).done(function () {
-                        customerData.invalidate(['cart']);
-                        customerData.reload(['cart'], true);
+                        customerData.invalidate(['customcart-data']);
+                        customerData.reload(['customcart-data'], true);
                         getTotals([]);
                     });
 
                 });
             }
-            let cartItems = customerData.get(['cart'])().items;
+            let cartItems = customerData.get(['customcart-data'])().items;
 
             for (let i=0; i < cartItems.length; i++) {
                 this.quoteItems[cartItems[i].item_id].product_has_url = cartItems[i].product_has_url;

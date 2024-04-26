@@ -24,8 +24,8 @@ define([
 
             updateCartAction(data, deferred);
             $.when(deferred).done(function () {
-                customerData.invalidate(['cart']);
-                customerData.reload(['cart'], true);
+                customerData.invalidate(['customcart-data']);
+                customerData.reload(['customcart-data'], true);
                 getTotals([]);
             });
         }

@@ -284,11 +284,14 @@ class Customcart extends AbstractModel implements CustomcartInterface
     public function collectTotals(): static
     {
         $subtotal = 0;
+        $itemsQty = 0;
 
         foreach ($this->getItems() as $item) {
             $subtotal += $item->getPrice() * $item->getQty();
+            $itemsQty += $item->getQty();
         }
         $this->setSubtotal($subtotal);
+        $this->setItemsQty($itemsQty);
 
         return $this;
     }

@@ -45,12 +45,12 @@ class Session extends SessionManager
      *
      * @var CustomerInterface|null
      */
-    protected ?CustomerInterface $customer;
+    protected ?CustomerInterface $customer = null;
 
     /**
      * @var bool
      */
-    private bool $isLoading;
+    private bool $isLoading = false;
 
     /**
      * @param CustomcartRepositoryInterface $customcartRepository
@@ -233,7 +233,7 @@ class Session extends SessionManager
         }
 
         try {
-            $customerCustomcart = $this->customcartRepository->getByCustomerId($this->customerSession->getCustomerId());
+            $customerCustomcart = $this->customcartRepository->getByCustomerId((int) $this->customerSession->getCustomerId());
         } catch (LocalizedException|NoSuchEntityException $e) {
             $customerCustomcart = $this->customcartFactory->create();
         }
@@ -250,7 +250,7 @@ class Session extends SessionManager
                 $customerCustomcart = $newCustomcart;
             }
 
-            $this->setCustomcartId($customerCustomcart->getId());
+            $this->setCustomcartId((int) $customerCustomcart->getId());
 
             if ($this->customcart) {
                 $this->customcartRepository->delete($this->customcart);
