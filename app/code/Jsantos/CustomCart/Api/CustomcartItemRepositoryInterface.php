@@ -33,17 +33,6 @@ interface CustomcartItemRepositoryInterface
     public function getById($id): Data\CustomcartItemInterface;
 
     /**
-     * Retrieve customcart items matching the specified criteria.
-     *
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     * @return \Jsantos\CustomCart\Api\Data\CustomcartItemSearchResultsInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function getList(
-        \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-    ): Data\CustomcartItemSearchResultsInterface;
-
-    /**
      * Delete customcart item.
      *
      * @param \Jsantos\CustomCart\Api\Data\CustomcartItemInterface $customcartItem

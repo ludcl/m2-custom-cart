@@ -5,18 +5,40 @@ declare(strict_types=1);
 namespace Jsantos\CustomCart\Model;
 
 use Jsantos\CustomCart\Api\Data\CustomcartItemInterface;
+use Magento\Catalog\Api\Data\ProductInterface;
+use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Model\ResourceModel\AbstractResource;
+use Magento\Framework\Registry;
+use Magento\Catalog\Model\ProductRepository as ProductRepository;
 
 class CustomcartItem extends AbstractModel implements CustomcartItemInterface
 {
     /**
-     * Initialize the object and set the resource model to be used.
-     *
-     * @return void
+     * @param ProductRepository $productRepository
+     * @param Context $context
+     * @param Registry $registry
+     * @param AbstractResource $resource
+     * @param AbstractDb $resourceCollection
+     * @param array $data
      */
-    protected function _construct(): void
-    {
-        $this->_init(ResourceModel\CustomcartItem::class);
+    public function __construct(
+        protected ProductRepository $productRepository,
+        Context $context,
+        Registry $registry,
+        AbstractResource $resource = null,
+        AbstractDb $resourceCollection = null,
+        array $data = []
+    ) {
+        parent::__construct(
+            $context,
+            $registry,
+            $resource,
+            $resourceCollection,
+            $data
+        );
     }
 
     /**
@@ -153,5 +175,37 @@ class CustomcartItem extends AbstractModel implements CustomcartItemInterface
     public function getUpdatedAt()
     {
         return $this->getData(self::UPDATED_AT);
+    }
+
+    /**
+     * Initialize the object and set the resource model to be used.
+     *
+     * @return void
+     */
+    protected function _construct(): void
+    {
+        $this->_init(ResourceModel\CustomcartItem::class);
+    }
+
+    /**
+     * Get Product Entity
+     *
+     * @return ProductInterface
+     * @throws NoSuchEntityException
+     */
+    public function getProduct(): ProductInterface
+    {
+        return $this->productRepository->getById($this->getProductId());
+    }
+
+    /**
+     * Compare items
+     *
+     * @param CustomcartItemInterface $item
+     * @return bool
+     */
+    public function compare(CustomcartItemInterface $item): bool
+    {
+        return ($this->getSku() !== null && $this->getSku() === $item->getSku());
     }
 }

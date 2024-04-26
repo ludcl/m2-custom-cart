@@ -86,7 +86,7 @@ interface CustomcartInterface
     public function getUpdatedAt();
 
     /**
-     * Get Items
+     * Return all the cart items associated to the customercart
      *
      * @return CustomcartItemInterface[]|null
      */
@@ -97,6 +97,8 @@ interface CustomcartInterface
      *
      * @param CustomcartItemInterface[] $items
      * @return $this
+     * @throws \Magento\Framework\Exception\CouldNotDeleteException
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function setItems(array $items);
 }

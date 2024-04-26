@@ -6,18 +6,35 @@ namespace Jsantos\CustomCart\Model;
 
 use Jsantos\CustomCart\Api\CustomcartItemRepositoryInterface;
 use Jsantos\CustomCart\Api\Data\CustomcartItemInterface;
-use Jsantos\CustomCart\Api\Data\CustomcartItemSearchResultsInterface;
-use Magento\Framework\Api\SearchCriteriaInterface;
+use Jsantos\CustomCart\Model\ResourceModel\CustomcartItem as CustomcartItemResourceModel;
+use Magento\Framework\Exception\CouldNotDeleteException;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 class CustomcartItemRepository implements CustomcartItemRepositoryInterface
 {
+    /**
+     * @param CustomcartItemFactory $customcartItemFactory
+     * @param CustomcartItemResourceModel $resourceModel
+     */
+    public function __construct(
+        private CustomcartItemFactory $customcartItemFactory,
+        private CustomcartItemResourceModel $resourceModel
+    ) {
+    }
 
     /**
      * @inheritDoc
      */
     public function save(CustomcartItemInterface $customcartItem): CustomcartItemInterface
     {
-        // TODO: Implement save() method.
+        try {
+            $this->resourceModel->save($customcartItem);
+        } catch (\Exception $exception) {
+            throw new CouldNotSaveException(__('Could not save the custom cart item.'));
+        }
+
+        return $customcartItem;
     }
 
     /**
@@ -25,15 +42,14 @@ class CustomcartItemRepository implements CustomcartItemRepositoryInterface
      */
     public function getById($id): CustomcartItemInterface
     {
-        // TODO: Implement getById() method.
-    }
+        $customcartItem = $this->customcartItemFactory->create();
+        $this->resourceModel->load($customcartItem, $id);
 
-    /**
-     * @inheritDoc
-     */
-    public function getList(SearchCriteriaInterface $searchCriteria): CustomcartItemSearchResultsInterface
-    {
-        // TODO: Implement getList() method.
+        if (!$customcartItem->getId()) {
+            throw new NoSuchEntityException(__('Custom cart item with id "%1" does not exist.', $id));
+        }
+
+        return $customcartItem;
     }
 
     /**
@@ -41,7 +57,13 @@ class CustomcartItemRepository implements CustomcartItemRepositoryInterface
      */
     public function delete(CustomcartItemInterface $customcartItem): bool
     {
-        // TODO: Implement delete() method.
+        try {
+            $this->resourceModel->delete($customcartItem);
+        } catch (\Exception $exception) {
+            throw new CouldNotDeleteException(__('Could not delete the custom cart item.'));
+        }
+
+        return true;
     }
 
     /**
@@ -49,6 +71,9 @@ class CustomcartItemRepository implements CustomcartItemRepositoryInterface
      */
     public function deleteById($id): bool
     {
-        // TODO: Implement deleteById() method.
+        $customcartItem = $this->getById($id);
+        $this->delete($customcartItem);
+
+        return true;
     }
 }

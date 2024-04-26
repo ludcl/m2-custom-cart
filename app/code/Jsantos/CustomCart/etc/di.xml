@@ -6,4 +6,10 @@
 
     <preference for="Jsantos\CustomCart\Api\CustomcartRepositoryInterface" type="Jsantos\CustomCart\Model\CustomcartRepository"/>
     <preference for="Jsantos\CustomCart\Api\CustomcartItemRepositoryInterface" type="Jsantos\CustomCart\Model\CustomcartItemRepository"/>
+
+    <type name="Jsantos\CustomCart\Model\Session">
+        <arguments>
+            <argument name="storage" xsi:type="object">Jsantos\CustomCart\Model\Session\Storage</argument>
+        </arguments>
+    </type>
 </config>

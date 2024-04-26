@@ -16,7 +16,7 @@ interface CustomcartRepositoryInterface
     public function save(\Jsantos\CustomCart\Api\Data\CustomcartInterface $customcart): Data\CustomcartInterface;
 
     /**
-     * Retrieve customcart.
+     * Retrieve customcart by id.
      *
      * @param int $id
      * @return \Jsantos\CustomCart\Api\Data\CustomcartInterface
@@ -26,15 +26,14 @@ interface CustomcartRepositoryInterface
     public function getById($id): Data\CustomcartInterface;
 
     /**
-     * Retrieve customcarts matching the specified criteria.
+     * Retrieve customcart by customer id.
      *
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     * @return \Jsantos\CustomCart\Api\Data\CustomcartSearchResultsInterface
+     * @param int $customerId
+     * @return \Jsantos\CustomCart\Api\Data\CustomcartInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getList(
-        \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-    ): Data\CustomcartSearchResultsInterface;
+    public function getByCustomerId(int $customerId): Data\CustomcartInterface;
 
     /**
      * Delete customcart.
