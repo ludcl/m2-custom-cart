@@ -2,7 +2,7 @@
 <tr class="item-info">
     <td data-bind="attr: {'data-th': $t('Item')}" class="col item">
         <a data-bind="attr: {'title': getName($parent), 'href': getProductUrl($parent.item_id)}" tabindex="-1" class="product-item-photo">
-                <span class="product-image-container">
+            <span class="product-image-container">
                 <span class="product-image-wrapper" style="padding-bottom: 100%;">
                     <img data-bind="attr: {'src': getProductImageUrl($parent.item_id), 'alt': getName($parent)}"/>
                 </span>
@@ -17,19 +17,6 @@
                     <!-- ko text: getName($parent) --><!--/ko-->
                 <!-- /ko -->
             </strong>
-            <!-- ko if: (JSON.parse($parent.options).length > 0)-->
-            <dl class="item-options">
-                <!--ko foreach: JSON.parse($parent.options)-->
-                    <dt data-bind="text: label"></dt>
-                    <!-- ko if: ($data.full_view)-->
-                    <dd data-bind="html: full_view"></dd>
-                    <!-- /ko -->
-                    <!-- ko ifnot: ($data.full_view)-->
-                    <dd data-bind="html: value"></dd>
-                    <!-- /ko -->
-                <!-- /ko -->
-            </dl>
-            <!-- /ko -->
             <div class="cart item message notice" if="getMessage($parent)">
                 <div data-bind="text: getMessage($parent)"></div>
             </div>

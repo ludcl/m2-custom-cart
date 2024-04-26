@@ -23,7 +23,7 @@ define([
          * @return {*|String}
          */
         getValue: function (quoteItem) {
-            return this.getFormattedPrice(quoteItem['price']);
+            return this.getFormattedPrice(quoteItem.product_price);
         }
     });
 });

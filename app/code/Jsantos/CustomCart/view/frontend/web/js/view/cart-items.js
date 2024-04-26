@@ -1,7 +1,7 @@
 
 define([
     'ko',
-    'Magento_Checkout/js/model/totals',
+    'Jsantos_CustomCart/js/model/totals',
     'uiComponent'
 ], function (ko, totals, Component) {
     'use strict';

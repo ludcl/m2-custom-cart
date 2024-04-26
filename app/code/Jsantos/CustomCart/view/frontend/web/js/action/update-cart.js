@@ -6,7 +6,14 @@ define([
     'Magento_Checkout/js/model/error-processor',
     'mage/storage',
     'Magento_Ui/js/modal/alert',
-], function ($, quote, urlBuilder, errorProcessor, storage, alert) {
+], function (
+    $,
+    quote,
+    urlBuilder,
+    errorProcessor,
+    storage,
+    alert
+) {
     'use strict';
 
     return function (data, deferred) {

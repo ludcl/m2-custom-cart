@@ -3,7 +3,6 @@ define([
     'uiComponent',
     'ko',
     'jquery',
-    'Magento_Checkout/js/model/quote',
     'Magento_Customer/js/customer-data',
     'Jsantos_CustomCart/js/action/update-cart',
     'Magento_Checkout/js/action/get-totals',
@@ -11,7 +10,6 @@ define([
     Component,
     ko,
     $,
-    quote,
     customerData,
     updateCartAction,
     getTotals,
@@ -35,7 +33,8 @@ define([
         initialize: function () {
             this._super();
 
-            let quoteItemsTemp = quote.getItems();
+            let cartItems = customerData.get(['customcart-data'])().items;
+            let quoteItemsTemp = cartItems;
 
             for (let i=0; i < quoteItemsTemp.length; i++) {
                 let itemId = quoteItemsTemp[i].item_id;
@@ -56,13 +55,12 @@ define([
 
                 });
             }
-            let cartItems = customerData.get(['customcart-data'])().items;
 
-            for (let i=0; i < cartItems.length; i++) {
+            /*for (let i=0; i < cartItems.length; i++) {
                 this.quoteItems[cartItems[i].item_id].product_has_url = cartItems[i].product_has_url;
                 this.quoteItems[cartItems[i].item_id].product_url = cartItems[i].product_url;
                 this.quoteItems[cartItems[i].item_id].product_image = cartItems[i].product_image;
-            }
+            }*/
         },
 
         /**
@@ -78,7 +76,7 @@ define([
          * @return {String}
          */
         getName: function (item) {
-            return item.name;
+            return item.product_name;
         },
 
         getId: function (item) {
