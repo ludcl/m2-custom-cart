@@ -165,7 +165,7 @@ class Session extends SessionManager
     }
 
     /**
-     * Return the current customcart's ID
+     * Return the current Custom Cart's ID
      *
      * @return int
      * @codeCoverageIgnore
@@ -212,7 +212,7 @@ class Session extends SessionManager
             : $this->customerSession->getCustomerId();
 
         try {
-            $customcart = $this->customcartRepository->getByCustomerId($customerId);
+            $customcart = $this->customcartRepository->getByCustomerId((int) $customerId);
         } catch (NoSuchEntityException|LocalizedException $e) {
             $customcart = null;
         }
@@ -233,7 +233,9 @@ class Session extends SessionManager
         }
 
         try {
-            $customerCustomcart = $this->customcartRepository->getByCustomerId((int) $this->customerSession->getCustomerId());
+            $customerCustomcart = $this->customcartRepository->getByCustomerId(
+                (int) $this->customerSession->getCustomerId()
+            );
         } catch (LocalizedException|NoSuchEntityException $e) {
             $customerCustomcart = $this->customcartFactory->create();
         }

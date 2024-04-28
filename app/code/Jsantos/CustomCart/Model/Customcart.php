@@ -207,7 +207,8 @@ class Customcart extends AbstractModel implements CustomcartInterface
             foreach ($this->getItems() as $customcartItem) {
                 if ($customcartItem->compare($item)) {
                     $customcartItem->setQty($customcartItem->getQty() + $item->getQty());
-                    $customcartItem->setSubtotal($customcartItem->getPrice() * $customcartItem->getQty());
+                    $customcartItem->setRowSubtotal($customcartItem->getPrice() * $customcartItem->getQty());
+                    $this->customcartItemRepository->save($customcartItem);
                     $found = true;
                     break;
                 }
@@ -215,6 +216,7 @@ class Customcart extends AbstractModel implements CustomcartInterface
 
             if (!$found) {
                 $newItem = clone $item;
+                $newItem->unsetData('item_id');
                 $this->addItem($newItem);
             }
         }
@@ -232,10 +234,9 @@ class Customcart extends AbstractModel implements CustomcartInterface
     public function addItem(CustomcartItemInterface $item): static
     {
         $item->setCustomcartId($this->getEntityId());
-        if (!$item->getRowSubtotal()) {
-            $item->setRowSubtotal($item->getQty() * $item->getPrice());
-        }
-        if (!$item->getId()) {
+        $item->setRowSubtotal($item->getQty() * $item->getPrice());
+
+        if (!$item->getItemId()) {
             $this->customcartItemRepository->save($item);
         }
 
@@ -269,7 +270,7 @@ class Customcart extends AbstractModel implements CustomcartInterface
     public function removeAllItems(): static
     {
         foreach ($this->getItemsCollection() as $item) {
-            $this->removeItem($item->getId());
+            $this->removeItem((int) $item->getId());
         }
         $this->items = $this->getItemsCollection(false);
 
@@ -294,5 +295,39 @@ class Customcart extends AbstractModel implements CustomcartInterface
         $this->setItemsQty($itemsQty);
 
         return $this;
+    }
+
+    /**
+     * Retrieve item model object by item identifier
+     *
+     * @param int $itemId
+     * @return CustomcartItemInterface|false
+     */
+    public function getItemById(int $itemId): false|CustomcartItemInterface
+    {
+        foreach ($this->getItemsCollection() as $item) {
+            if ($item->getId() == $itemId) {
+                return $item;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieve item model object by product id
+     *
+     * @param int $productId
+     * @return CustomcartItemInterface|false
+     */
+    public function getItemByProductId(int $productId): false|CustomcartItemInterface
+    {
+        foreach ($this->getItemsCollection() as $item) {
+            if ($item->getProductId() == $productId) {
+                return $item;
+            }
+        }
+
+        return false;
     }
 }
