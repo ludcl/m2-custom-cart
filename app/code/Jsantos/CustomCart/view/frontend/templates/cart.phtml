@@ -11,16 +11,15 @@ use Magento\Catalog\Model\Product;
 ?>
 
 <div class="products-grid grid">
-    <div data-unit-id="1"
-         data-content-type="products"
+    <h2 class="carousel-title">You might like one of this products</h2>
+    <div data-content-type="products"
          data-appearance="carousel"
          data-autoplay="true"
-         data-autoplay-speed="3000"
+         data-autoplay-speed="4000"
          data-infinite-loop="true"
          data-show-arrows="true"
          data-show-dots="false"
          data-carousel-mode="default"
-         data-center-padding="120px"
          data-element="main"
     >
         <ol class="product-items widget-product-grid">
@@ -81,27 +80,25 @@ use Magento\Catalog\Model\Product;
         'Jsantos_CustomCart/js/action/update-cart',
     ], function($, customerData, urlBuilder, updateCartAction) {
         $(document).ready(function() {
+            let cartTableSelector = '#shopping-cart-table';
             $('.action.to-custom').click(function(e) {
                 e.preventDefault();
                 let form = $(this).closest('form');
                 let formData = form.serialize();
+                formData = formData + '&form_key=' + $.cookie('form_key');
 
                 $.ajax({
                     url: urlBuilder.build('customcart/cart/update'),
                     type: 'post',
                     data: formData,
                     dataType: 'json',
-                    beforeSend: function() {
-                        // Show loading indicator (optional)
-                    },
                     success: function(response) {
-                        // Handle successful add to cart response
-                    },
-                    error: function(request, error) {
-                        customerData.invalidate(['cart']);
-                        customerData.reload(['cart'], true);
-                    },
-                    complete: function() {
+                        if ($(cartTableSelector).length === 0) {
+                            console.log('emptycart');
+                            $(document).on('customer-data-reload',function() {
+                                location.reload();
+                            });
+                        }
                         customerData.invalidate(['cart']);
                         customerData.reload(['cart'], true);
                     }
