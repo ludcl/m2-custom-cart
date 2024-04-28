@@ -12,7 +12,7 @@ use Magento\Framework\Escaper;
 
 ?>
 
-<?php if ($block->getItemsCount() == 0): ?>
+<?php if (false): ?>
 <div id="cart-form-container" class="cart-component-container form form-cart" data-bind="scope:'checkout-cart-form'">
     <div class="cart-empty">
         <p>...is empty. Let's change that.</p>
@@ -55,5 +55,6 @@ use Magento\Framework\Escaper;
                 return url.setBaseUrl('<?= $escaper->escapeJs($escaper->escapeUrl($block->getBaseUrl())) ?>');
             })
         </script>
+        <div class="separator"></div>
     </div>
 <?php endif; ?>

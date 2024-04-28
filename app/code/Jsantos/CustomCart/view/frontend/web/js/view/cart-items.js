@@ -12,7 +12,6 @@ define([
         },
         totals: totals.totals(),
         items: ko.observable([]),
-        cartUrl: window.checkoutConfig.cartUrl,
 
         /**
          * Returns cart items qty

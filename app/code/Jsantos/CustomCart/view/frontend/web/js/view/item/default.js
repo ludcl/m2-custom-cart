@@ -5,26 +5,19 @@ define([
     'jquery',
     'Magento_Customer/js/customer-data',
     'Jsantos_CustomCart/js/action/update-cart',
-    'Magento_Checkout/js/action/get-totals',
 ], function (
     Component,
     ko,
     $,
     customerData,
     updateCartAction,
-    getTotals,
 ) {
     'use strict';
-
-    let imageData = window.checkoutConfig.cartImageData;
-    let quoteMessages = window.checkoutConfig.quoteMessages;
 
     return Component.extend({
         defaults: {
             template: 'Jsantos_CustomCart/cart/item/default'
         },
-        imageData: imageData,
-        quoteMessages: quoteMessages,
         quoteItems: [],
 
         /**
@@ -33,8 +26,7 @@ define([
         initialize: function () {
             this._super();
 
-            let cartItems = customerData.get(['customcart-data'])().items;
-            let quoteItemsTemp = cartItems;
+            let quoteItemsTemp = customerData.get(['customcart-data'])().items ?? [];
 
             for (let i=0; i < quoteItemsTemp.length; i++) {
                 let itemId = quoteItemsTemp[i].item_id;
@@ -50,17 +42,10 @@ define([
                     $.when(deferred).done(function () {
                         customerData.invalidate(['customcart-data']);
                         customerData.reload(['customcart-data'], true);
-                        getTotals([]);
                     });
 
                 });
             }
-
-            /*for (let i=0; i < cartItems.length; i++) {
-                this.quoteItems[cartItems[i].item_id].product_has_url = cartItems[i].product_has_url;
-                this.quoteItems[cartItems[i].item_id].product_url = cartItems[i].product_url;
-                this.quoteItems[cartItems[i].item_id].product_image = cartItems[i].product_image;
-            }*/
         },
 
         /**
@@ -100,17 +85,6 @@ define([
         },
 
         /**
-         * @param {Object} item
-         * @return {Array}
-         */
-        getImageItem: function (item) {
-            if (this.imageData[item['item_id']]) {
-                return this.imageData[item['item_id']];
-            }
-            return [];
-        },
-
-        /**
          * @param {String} item_id
          * @return {String}
          */
@@ -122,22 +96,8 @@ define([
          * @param {Object} item
          * @return {null}
          */
-        getSrc: function (item) {
-            if (this.imageData[item['item_id']]) {
-                return this.imageData[item['item_id']].src;
-            }
-            return null;
-        },
-
-        /**
-         * @param {Object} item
-         * @return {null}
-         */
         getWidth: function (item) {
-            if (this.imageData[item['item_id']]) {
-                return this.imageData[item['item_id']].width;
-            }
-            return null;
+            return 150;
         },
 
         /**
@@ -145,21 +105,7 @@ define([
          * @return {null}
          */
         getHeight: function (item) {
-            if (this.imageData[item['item_id']]) {
-                return this.imageData[item['item_id']].height;
-            }
-            return null;
-        },
-
-        /**
-         * @param {Object} item
-         * @return {null}
-         */
-        getAlt: function (item) {
-            if (this.imageData[item['item_id']]) {
-                return this.imageData[item['item_id']].alt;
-            }
-            return null;
+            return 150;
         },
 
         /**
@@ -167,9 +113,6 @@ define([
          * @return {null}
          */
         getMessage: function (item) {
-            if (this.quoteMessages[item['item_id']]) {
-                return this.quoteMessages[item['item_id']];
-            }
             return null;
         }
     });

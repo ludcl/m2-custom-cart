@@ -7,7 +7,7 @@ define([
 ], function (ko, customerData) {
     'use strict';
 
-    let quoteItems = ko.observable(customerData.get(['customcart-data'])().items),
+    let quoteItems = ko.observable(customerData.get(['customcart-data'])().items ?? []),
         cartData = customerData.get('customcart-data'),
         quote = {
             'totals': customerData.get(['customcart-data'])

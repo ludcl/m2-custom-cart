@@ -1,9 +1,8 @@
 
 define([
     'uiComponent',
-    'Magento_Checkout/js/model/quote',
     'Magento_Catalog/js/price-utils'
-], function (Component, quote, priceUtils) {
+], function (Component, priceUtils) {
     'use strict';
 
     return Component.extend({
@@ -15,7 +14,7 @@ define([
          * @return {*|String}
          */
         getFormattedPrice: function (price) {
-            return priceUtils.formatPrice(price, quote.getPriceFormat());
+            return price;//priceUtils.formatPrice(price, quote.getPriceFormat());
         },
 
         /**

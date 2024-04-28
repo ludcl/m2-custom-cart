@@ -1,16 +1,12 @@
 
 define([
     'jquery',
-    'Magento_Checkout/js/model/quote',
     'mage/url',
-    'Magento_Checkout/js/model/error-processor',
     'mage/storage',
     'Magento_Ui/js/modal/alert',
 ], function (
     $,
-    quote,
     urlBuilder,
-    errorProcessor,
     storage,
     alert
 ) {
@@ -49,11 +45,9 @@ define([
                     });
                 }
                 deferred.reject();
-                errorProcessor.process(response);
             }
         }).fail(function () {
             deferred.reject();
-            errorProcessor.process({status: 401});
         });
     };
 });
