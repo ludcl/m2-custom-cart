@@ -32,14 +32,6 @@ define([
          */
         getItems: function () {
             return quoteItems;
-        },
-
-        /**
-         * @param {*} code
-         * @return {*}
-         */
-        getSegment: function (code) {
-            return null;
         }
     };
 });
