@@ -14,7 +14,7 @@ define([
          * @return {*|String}
          */
         getFormattedPrice: function (price) {
-            return price;//priceUtils.formatPrice(price, quote.getPriceFormat());
+            return 'CA$' + price.toFixed(2);
         },
 
         /**
@@ -22,7 +22,7 @@ define([
          * @return {*|String}
          */
         getValue: function (quoteItem) {
-            return this.getFormattedPrice(quoteItem.product_price);
+            return this.getFormattedPrice(parseFloat(quoteItem.product_price));
         }
     });
 });
