@@ -139,11 +139,11 @@ class Customcart extends AbstractModel implements CustomcartInterface
     /**
      * @inheritDoc
      */
-    public function getItems(): ?array
+    public function getItems(bool $useCache = true): ?array
     {
         $items = [];
 
-        foreach ($this->getItemsCollection() as $item) {
+        foreach ($this->getItemsCollection($useCache) as $item) {
             /** @var ProductInterface $product */
             $product = $item->getProduct();
 
@@ -287,7 +287,7 @@ class Customcart extends AbstractModel implements CustomcartInterface
         $subtotal = 0;
         $itemsQty = 0;
 
-        foreach ($this->getItems() as $item) {
+        foreach ($this->getItems(false) as $item) {
             $subtotal += $item->getPrice() * $item->getQty();
             $itemsQty += $item->getQty();
         }
