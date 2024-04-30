@@ -50,7 +50,7 @@ class Customcart implements SectionSourceInterface
         $formattedZero = $this->checkoutHelper->formatPrice(0);
 
         try {
-            $subtotalAmount = $this->getCustomcart()->getSubtotal();
+            $subtotalAmount = $this->getCustomcart()->getSubtotal() ?? 0;
             return [
                 'summary_count' => $this->getSummaryCount(),
                 'subtotalAmount' => $subtotalAmount,
