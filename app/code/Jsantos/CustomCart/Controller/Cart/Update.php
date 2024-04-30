@@ -29,37 +29,6 @@ use Psr\Log\LoggerInterface;
  */
 class Update extends Action implements HttpPostActionInterface
 {
-
-    /**
-     * @var RequestQuantityProcessor
-     */
-    private $quantityProcessor;
-
-    /**
-     * @var FormKeyValidator
-     */
-    private $formKeyValidator;
-
-    /**
-     * @var CheckoutSession
-     */
-    private $checkoutSession;
-
-    /**
-     * @var Json
-     */
-    private $json;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    /**
-     * @var CartRepositoryInterface
-     */
-    private $quoteRepository;
-
     /**
      * UpdateAjax constructor.
      *
@@ -68,13 +37,13 @@ class Update extends Action implements HttpPostActionInterface
      * @param CustomcartRepositoryInterface $customcartRepository
      * @param ProductRepositoryInterface $productRepository
      * @param Session $customcartSession
-     * @param Context $context
      * @param RequestQuantityProcessor $quantityProcessor
      * @param FormKeyValidator $formKeyValidator
      * @param CheckoutSession $checkoutSession
      * @param Json $json
      * @param LoggerInterface $logger
      * @param CartRepositoryInterface $quoteRepository
+     * @param Context $context
      */
     public function __construct(
         protected CustomcartItemInterfaceFactory $customcartItemFactory,
@@ -82,20 +51,14 @@ class Update extends Action implements HttpPostActionInterface
         protected CustomcartRepositoryInterface $customcartRepository,
         protected ProductRepositoryInterface $productRepository,
         protected Session $customcartSession,
-        Context $context,
-        RequestQuantityProcessor $quantityProcessor,
-        FormKeyValidator $formKeyValidator,
-        CheckoutSession $checkoutSession,
-        Json $json,
-        LoggerInterface $logger,
-        CartRepositoryInterface $quoteRepository
+        protected RequestQuantityProcessor $quantityProcessor,
+        protected FormKeyValidator $formKeyValidator,
+        protected CheckoutSession $checkoutSession,
+        protected Json $json,
+        protected LoggerInterface $logger,
+        protected CartRepositoryInterface $quoteRepository,
+        Context $context
     ) {
-        $this->quantityProcessor = $quantityProcessor;
-        $this->formKeyValidator = $formKeyValidator;
-        $this->checkoutSession = $checkoutSession;
-        $this->json = $json;
-        $this->logger = $logger;
-        $this->quoteRepository = $quoteRepository;
         parent::__construct($context);
     }
 
