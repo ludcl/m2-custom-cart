@@ -16,19 +16,6 @@
                     <block name="customcart.index.cart.table" as="customcart-items-table" template="Jsantos_CustomCart::cart/table.phtml" after="cart.summary">
                         <arguments>
                             <argument name="jsLayout" xsi:type="array">
-                                <item name="types" xsi:type="array">
-                                    <item name="form.input" xsi:type="array">
-                                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
-                                        <item name="config" xsi:type="array">
-                                            <item name="provider" xsi:type="string">checkoutProvider</item>
-                                            <item name="deps" xsi:type="array">
-                                                <item name="0" xsi:type="string">checkoutProvider</item>
-                                            </item>
-                                            <item name="template" xsi:type="string">ui/form/field</item>
-                                            <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
-                                        </item>
-                                    </item>
-                                </item>
                                 <item name="components" xsi:type="array">
                                     <item name="checkout-cart-form" xsi:type="array">
                                         <item name="component" xsi:type="string">Jsantos_CustomCart/js/view/table</item>
@@ -36,13 +23,6 @@
                                             <item name="template" xsi:type="string">Jsantos_CustomCart/cart/table</item>
                                         </item>
                                         <item name="children" xsi:type="array">
-                                            <item name="itemsBefore" xsi:type="array">
-                                                <item name="component" xsi:type="string">uiComponent</item>
-                                                <item name="displayArea" xsi:type="string">before_items</item>
-                                                <item name="children" xsi:type="array">
-                                                    <!-- merge your components here -->
-                                                </item>
-                                            </item>
                                             <item name="cart_items" xsi:type="array">
                                                 <item name="component" xsi:type="string">Jsantos_CustomCart/js/view/cart-items</item>
                                                 <item name="displayArea" xsi:type="string">items</item>
@@ -89,23 +69,9 @@
                             </argument>
                         </arguments>
                     </block>
-
-
                 </container>
-                <!--block class="Magento\Checkout\Block\Cart\Crosssell" name="checkout.cart.crosssell" template="Magento_Catalog::product/list/items.phtml" after="-" ifconfig="checkout/cart/crosssell_enabled">
-                    <arguments>
-                        <argument name="type" xsi:type="string">crosssell</argument>
-                        <argument name="view_model" xsi:type="object">Magento\Catalog\ViewModel\Product\Listing\PreparePostData</argument>
-                    </arguments>
-                    <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="crosssell.product.addto" as="addto">
-                        <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
-                               name="crosssell.product.addto.compare" as="compare"
-                               template="Magento_Catalog::product/list/addto/compare.phtml"/>
-                    </block>
-                </block-->
                 <block name="customcart.content" class="Jsantos\CustomCart\Block\Index\Index" template="Jsantos_CustomCart::cart.phtml" cacheable="false"/>
             </container>
         </referenceContainer>
-        <!--referenceContainer name="main.content" htmlTag="main" htmlClass="page-main-full-width" /-->
     </body>
 </page>
