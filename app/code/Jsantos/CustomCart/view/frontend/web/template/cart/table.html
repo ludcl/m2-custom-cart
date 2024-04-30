@@ -1,4 +1,4 @@
-<!-- ko if: (items().length>0)-->
+<!-- ko if: (items().length > 0) -->
     <div id="cart-form" class="cart table-wrapper">
         <table id="shopping-cart-table" class="cart items data table">
             <caption class="table-caption" data-bind="i18n: 'Shopping Cart Items'"></caption>
@@ -10,13 +10,7 @@
                 <th class="col subtotal" scope="col"><span data-bind="i18n: 'Subtotal'"></span></th>
             </tr>
             </thead>
-            <!-- ko foreach: getRegion('before_items') -->
-            <!-- ko template: getTemplate() --><!-- /ko -->
-            <!--/ko-->
             <!-- ko foreach: getRegion('items') -->
-            <!-- ko template: getTemplate() --><!-- /ko -->
-            <!--/ko-->
-            <!-- ko foreach: getRegion('after_items') -->
             <!-- ko template: getTemplate() --><!-- /ko -->
             <!--/ko-->
         </table>
@@ -31,7 +25,7 @@
         </button>
     </div>
 <!-- /ko -->
-<!-- ko ifnot: (items().length>0)-->
+<!-- ko ifnot: (items().length > 0) -->
 <div class="cart-empty">
     <p data-bind="i18n: '...is empty. Let\'s change that.'"></p>
 
